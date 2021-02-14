@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Meshiterro</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <!--ユーザ登録後はログイン状態になる。ログアウト機能を実装する。ここから-->
+    <% if user_signed_in? %>
+      <li>
+        <%= link_to '投稿フォーム', new_post_image_path %>
+      </li>
+        <!--以下はログアウトのリンク部分のコード-->                                       <!-- devise側で用意しているヘルパー --> <!--ログイン済みならばtrueが、ログインしていなければfalseが返される。-->
+      <li>                                                                                <!-- ログイン済みの場合、< % if user_signed_in? %>から< % else %>間のコードが表示される -->
+        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>           <!-- ログインしていない場合、< % else %>から< % end %>間のコードが表示される -->
+      </li>                                                                               <!-- method: :deleteでdestroy_user_session_pathへルーティングさせることでログアウトの処理を行ってくれる。-->
+    <% else %>
+      <li>
+        <%= link_to "新規登録", new_user_registration_path %>
+      </li>
+      <li>
+        <%= link_to "ログイン", new_user_session_path %>
+      </li>
+    <% end %>
+    <!--------------------------------------------------------------ここまで-->
+    <%= yield %>
+  </body>
+</html>
