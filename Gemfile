@@ -68,3 +68,6 @@ gem 'devise'  # 認証機能を提供してくれるGem 20210213
 gem "refile", require: "refile/rails", github: 'manfe/refile'
 # refile-mini_magickは、アップロードした画像のリサイズを行えるgemだ。リサイズ機能があると、投稿された画像を最適なサイズに変換できるようになる。 20210213
 gem "refile-mini_magick"
+
+# ページング機能の実装する
+gem 'kaminari','~> 1.2.1'

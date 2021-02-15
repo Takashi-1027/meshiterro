@@ -8,3 +8,37 @@
     <%= link_to "削除", post_image_path(@post_image), method: :delete %>  <!--削除ボタン-->
   <% end %>  <!--終わり-->
 </div>
+
+  <!-- いいね機能搭載 -->
+  <% if @post_image.favorited_by?(current_user) %>
+    <p>
+      <%= link_to post_image_favorites_path(@post_image), method: :delete do %>
+        ♥<%= @post_image.favorites.count %> いいね
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to post_image_favorites_path(@post_image), method: :post do %>
+        ♡<%= @post_image.favorites.count %> いいね
+      <% end %>
+    </p>
+  <% end %>
+  <!-- ここまで -->
+
+
+<!-- 投稿画像の詳細画面で、コメントを投稿できるようにする。また、投稿画像へのコメント、コメント数も表示させる。-->
+<div class="comments">
+  <p>コメント件数：<%= @post_image.post_comments.count %></p>
+  <% @post_image.post_comments.each do |post_comment| %>
+    <p><%= image_tag('sample-author1.jpg') %></p>
+    <%= post_comment.user.name %>
+    <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+  <% end %>
+</div>
+<div class="new-comment">
+  <%= form_with(model:[@post_image, @post_comment], local: true) do |f| %>  <!-- インスタンス変数が2つあることに注意する。コメントは、post_imageに結びついたpost_commentにあるため、2つ用意する必要がある。また、post_commentをcreateするためのリクエストは、ルーティングもネスト（親子関係）しているため、上記2つの情報が必要になる。-->
+    <%= f.text_area :comment, rows:'5',placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
+  <% end %>
+</div>
+<!--ここまで-->

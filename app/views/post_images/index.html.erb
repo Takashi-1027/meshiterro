@@ -3,9 +3,19 @@
   <%= link_to post_image_path(post_image.id) do %>  <!-- link_toで、post_image_path(post_image.id)のリンク先URLを指定していく。 /post_image/:idで、リンクが作成される。 -->
     <%= attachment_image_tag post_image, :image %> <!-- attachment_image_tagは、refile側が用意したヘルパーで、imgタグを作成してくれる。post_image変数のimage_idに保存された画像のimgタグを生成する。-->
   <% end %>
-  <p>投稿ユーザー画像：<%= image_tag('sample-author1.jpg') %></p>
+  <p>投稿ユーザー画像：<%= attachment_image_tag post_image.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %></p>
   <p>ショップ名：<%= post_image.shop_name %></p> <!-- post_image変数のshop_nameカラムを表示する。このカラムは、post_imageモデルに定義される。-->
   <p>説明：<%= post_image.caption %></p> <!-- post_image変数のcaptionカラムを表示する。このカラムも、post_imageモデルに定義される。-->
   <p>ユーザーネーム：<%= post_image.user.name %></p> <!--post_image変数のuser_idに関連付けられているuserモデルのnameカラムを表示する。同様にこのカラムも、post_imageモデルに定義される。-->
+  <p><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p> <!-- コメント件数の表示を記述する -->
 </div>
 <% end %>
+<%= paginate @post_images %>
+
+<!--他ページにもプロフィール画像を反映させる-->
+<!--[変更前] < %= image_tag('sample-author1.jpg') %> -->
+<!--[変更後] < %= attachment_image_tag post_image.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %> -->
+
+<!---->
+<!--[変更前] < %= image_tag('sample-author1.jpg') %> -->
+<!--[変更後] < %= attachment_image_tag post_comment.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %> -->

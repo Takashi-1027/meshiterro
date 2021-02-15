@@ -14,12 +14,17 @@ class PostImagesController < ApplicationController
 
   # 投稿一覧画面
   def index # 投稿された画像が一覧で表示されるようにする。
-    @post_images = PostImage.all # タイムライン上に表示する投稿データを取得できるようになる。
+    # @post_images = PostImage.all # タイムライン上に表示する投稿データを取得できるようになる。
+
+    # 下記のコードは上記のコメント内のコードに、1ページ分の決められた数のデータだけを、新しい順に取得するように変更している。
+    # pageメソッドは、kaminariをインストールしたことで使用可能になったメソッドだ。
+    @post_images = PostImage.page(params[:page]).reverse_order
   end
 
   # 投稿画像の詳細ページを設定する。
   def show # 詳細画面が表示されるように設定する。
     @post_image = PostImage.find(params[:id])
+    @post_comment = PostComment.new  # コメントのインスタンス変数を記述する。
   end
 
   # 投稿を削除できるようにする。

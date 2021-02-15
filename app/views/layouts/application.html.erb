@@ -19,6 +19,9 @@
       <li>                                                                                <!-- ログイン済みの場合、< % if user_signed_in? %>から< % else %>間のコードが表示される -->
         <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>           <!-- ログインしていない場合、< % else %>から< % end %>間のコードが表示される -->
       </li>                                                                               <!-- method: :deleteでdestroy_user_session_pathへルーティングさせることでログアウトの処理を行ってくれる。-->
+      <li>
+        <%= link_to 'マイページ', user_path(current_user.id) %>  <!-- マイページのリンクを、ヘッダーに設定する。ヘッダーに設定すると、ログインしたときに、どのページからでもアクセスできるようになる。-->
+      </li>
     <% else %>
       <li>
         <%= link_to "新規登録", new_user_registration_path %>
