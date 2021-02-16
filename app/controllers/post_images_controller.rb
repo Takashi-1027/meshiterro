@@ -8,8 +8,11 @@ class PostImagesController < ApplicationController
   def create  # 投稿データを保存するアクションメソッド
     @post_image = PostImage.new(post_image_params) # post_image_paramsでは、フォームで入力されたデータが投稿データとして許可されているパラメータかどうかをチェックしている。
     @post_image.user_id = current_user.id
-    @post_image.save
-    redirect_to post_images_path # PostImageモデルに保存した後、リダイレクトで投稿一覧画面へ戻る。
+    if @post_image.save
+      redirect_to post_images_path # PostImageモデルに保存した後、リダイレクトで投稿一覧画面へ戻る。
+    else
+      render :new  # falseならば、画像投稿ページを再表示するように設定する。　renderはサーバーを通さずに直接行きたいページ(今回は画像投稿ページnew)へ送られる
+    end  
   end
 
   # 投稿一覧画面

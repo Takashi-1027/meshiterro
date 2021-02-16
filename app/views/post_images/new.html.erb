@@ -1,4 +1,13 @@
 <h1>画像投稿フォーム</h1>
+<!--バリデーションによるエラーメッセージを表示する ここから-->
+<% if @post_image.errors.any? %>                          <!--エラーの内容が確認できるようにする-->
+  <%= @post_image.errors.count %>件のエラーが発生しました
+  <% @post_image.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+<!--バリデーションによるエラーメッセージを表示する ここまで-->
+
 <%= form_with model: @post_image, local:true do |f| %>  <!--form_withを利用して、post_images_path（/post_images）に画像をアップロードする。20210213-->
   <h4>画像</h4>
   <%= f.attachment_field :image %>  <!--画像アップロードは、< %= f.attachment_field :image %>で実装している。指定するフィールド名は、image_idから_idを除いた名前（image）を指定する。20210213-->
