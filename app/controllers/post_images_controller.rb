@@ -12,7 +12,7 @@ class PostImagesController < ApplicationController
       redirect_to post_images_path # PostImageモデルに保存した後、リダイレクトで投稿一覧画面へ戻る。
     else
       render :new  # falseならば、画像投稿ページを再表示するように設定する。　renderはサーバーを通さずに直接行きたいページ(今回は画像投稿ページnew)へ送られる
-    end  
+    end
   end
 
   # 投稿一覧画面

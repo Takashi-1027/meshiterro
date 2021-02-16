@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+/*SCSSにBootstrap、fontawesomeを読み込ませる20210217*/
+@import "bootstrap";
+@import 'font-awesome-sprockets';
+@import 'font-awesome';

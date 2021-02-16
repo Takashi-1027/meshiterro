@@ -13,10 +13,10 @@ class PostImage < ApplicationRecord
 
   # いいね機能を搭載するための設定、PostImageモデルに関連付けを追加する
   has_many :favorites, dependent: :destroy
-  
+
   validates :shop_name, presence: true    # 画像投稿に対して「必須入力」の設定が必要なので、PostImageモデルにデータ保存の記述を追加する。presence（存在）
   validates :image, presence: true
-  
+
 
   def favorited_by?(user)  # favorited_by?メソッドで、引数で渡されたユーザidがFavoritesテーブル内に存在（exists?）するかどうかを調べる。存在していればtrue、存在していなければfalseを返すようにしている。
     favorites.where(user_id: user.id).exists?
